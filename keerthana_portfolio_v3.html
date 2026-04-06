@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Keerthana S — Java Full Stack Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Bricolage+Grotesque:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0a0b;
+  --bg2:#111114;
+  --bg3:#18181d;
+  --card:#1c1c22;
+  --card2:#222229;
+  --border:#2a2a33;
+  --border2:#353540;
+  --text:#f0efe8;
+  --sub:#8a8a96;
+  --hint:#55555f;
+  --accent:#00e5a0;
+  --accent2:#00b87a;
+  --accent-dim:#00e5a015;
+  --accent-glow:#00e5a030;
+  --amber:#f5a623;
+  --amber-dim:#f5a62318;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Bricolage Grotesque',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,10,11,0.85);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);height:60px;display:flex;align-items:center;padding:0 2rem}
+.nav-inner{max-width:1100px;width:100%;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{font-family:'Clash Display',sans-serif;font-size:18px;font-weight:600;color:var(--text);letter-spacing:-0.5px}
+.nav-logo span{color:var(--accent)}
+.nav-links{display:flex;align-items:center;gap:2rem}
+.nav-links a{font-size:13px;color:var(--sub);text-decoration:none;letter-spacing:0.04em;transition:color 0.2s}
+.nav-links a:hover,.nav-links a.active{color:var(--accent)}
+.nav-cta{font-size:12px;padding:7px 16px;border:1px solid var(--accent2);border-radius:6px;color:var(--accent);text-decoration:none;transition:all 0.2s;letter-spacing:0.04em}
+.nav-cta:hover{background:var(--accent-glow)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.hamburger span{display:block;width:22px;height:1.5px;background:var(--sub);transition:all 0.3s}
+.mobile-menu{display:none;position:fixed;top:60px;left:0;right:0;background:var(--bg2);border-bottom:1px solid var(--border);padding:1.5rem 2rem;z-index:99;flex-direction:column;gap:1.25rem}
+.mobile-menu a{font-size:14px;color:var(--sub);text-decoration:none}
+.mobile-menu a:hover{color:var(--accent)}
+.mobile-menu.open{display:flex}
+
+/* MAIN */
+main{padding-top:60px}
+
+/* SECTION BASE */
+section{padding:5rem 2rem}
+.container{max-width:1100px;margin:0 auto}
+.section-tag{display:inline-flex;align-items:center;gap:8px;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:var(--accent);margin-bottom:1.25rem}
+.section-tag::before{content:'';width:20px;height:1px;background:var(--accent)}
+.section-title{font-family:'Clash Display',sans-serif;font-size:clamp(28px,4vw,42px);font-weight:600;letter-spacing:-1px;color:var(--text);margin-bottom:1rem;line-height:1.1}
+
+/* HERO */
+#hero{min-height:100vh;display:flex;align-items:center;position:relative;padding:0 2rem;overflow:hidden}
+.hero-grid{background-image:radial-gradient(var(--border) 1px,transparent 1px);background-size:32px 32px;position:absolute;inset:0;opacity:0.5}
+.hero-glow{position:absolute;top:20%;left:50%;transform:translateX(-50%);width:600px;height:600px;background:radial-gradient(circle,var(--accent-dim) 0%,transparent 70%);pointer-events:none}
+.hero-inner{max-width:1100px;margin:0 auto;position:relative;z-index:1}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--accent-dim);border:1px solid var(--accent-glow);border-radius:100px;padding:6px 14px;font-size:12px;color:var(--accent);letter-spacing:0.04em;margin-bottom:2rem}
+.hero-badge-dot{width:6px;height:6px;border-radius:50%;background:var(--accent);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(0.8)}}
+.hero-name{font-family:'Clash Display',sans-serif;font-size:clamp(42px,7vw,84px);font-weight:700;letter-spacing:-3px;line-height:0.95;color:var(--text);margin-bottom:1.5rem}
+.hero-name .hl{color:var(--accent)}
+.hero-sub{font-size:clamp(14px,2vw,17px);color:var(--sub);max-width:520px;line-height:1.7;margin-bottom:2.5rem;font-weight:300}
+.hero-actions{display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#0a0a0b;font-size:13px;font-weight:600;padding:12px 22px;border-radius:8px;text-decoration:none;letter-spacing:0.02em;transition:all 0.2s}
+.btn-primary:hover{background:#00c988;transform:translateY(-1px)}
+.btn-ghost{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--border2);color:var(--sub);font-size:13px;padding:12px 22px;border-radius:8px;text-decoration:none;transition:all 0.2s}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+.hero-stats{display:flex;gap:2.5rem;margin-top:4rem;padding-top:2.5rem;border-top:1px solid var(--border)}
+.stat-item{}
+.stat-num{font-family:'Clash Display',sans-serif;font-size:32px;font-weight:700;color:var(--accent);letter-spacing:-1px}
+.stat-label{font-size:12px;color:var(--hint);margin-top:2px;letter-spacing:0.04em}
+
+/* ABOUT */
+#about{background:var(--bg2)}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
+.about-visual{position:relative}
+.avatar-box{width:260px;height:260px;border-radius:20px;background:var(--card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.avatar-initials{font-family:'Clash Display',sans-serif;font-size:72px;font-weight:700;color:var(--accent);letter-spacing:-2px}
+.avatar-corner{position:absolute;bottom:16px;right:16px;background:var(--accent-dim);border:1px solid var(--accent-glow);border-radius:8px;padding:8px 12px;font-size:11px;color:var(--accent);letter-spacing:0.06em}
+.about-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:1.5rem}
+.chip{font-size:11px;padding:5px 12px;border-radius:100px;background:var(--card);border:1px solid var(--border);color:var(--sub)}
+.chip.active{background:var(--accent-dim);border-color:var(--accent-glow);color:var(--accent)}
+.about-text p{font-size:15px;line-height:1.8;color:var(--sub);margin-bottom:1.25rem;font-weight:300}
+.about-text p strong{color:var(--text);font-weight:500}
+.info-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:2rem}
+.info-item{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1rem}
+.info-label{font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--hint);margin-bottom:4px}
+.info-val{font-size:13px;color:var(--text);font-weight:500}
+
+/* SKILLS */
+#skills{}
+.skills-layout{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:3rem}
+.skill-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.5rem;transition:border-color 0.2s,background 0.2s}
+.skill-card:hover{border-color:var(--border2);background:var(--card2)}
+.skill-icon{width:36px;height:36px;border-radius:8px;background:var(--accent-dim);border:1px solid var(--accent-glow);display:flex;align-items:center;justify-content:center;margin-bottom:1rem}
+.skill-icon svg{width:16px;height:16px;stroke:var(--accent);fill:none;stroke-width:1.5}
+.skill-cat{font-size:12px;font-weight:600;color:var(--text);letter-spacing:0.04em;margin-bottom:10px}
+.skill-pills{display:flex;flex-wrap:wrap;gap:5px}
+.sp{font-size:11px;padding:3px 9px;border-radius:100px;background:var(--bg3);border:1px solid var(--border);color:var(--sub)}
+.sp.key{background:var(--accent-dim);border-color:var(--accent-glow);color:var(--accent)}
+
+/* EXPERIENCE */
+#experience{background:var(--bg2)}
+.exp-timeline{margin-top:3rem;position:relative;padding-left:2px}
+.exp-item{display:grid;grid-template-columns:160px 1fr;gap:2rem;margin-bottom:3rem;position:relative}
+.exp-item::before{content:'';position:absolute;left:160px;top:8px;bottom:-3rem;width:1px;background:var(--border);margin-left:1rem}
+.exp-item:last-child::before{display:none}
+.exp-time{padding-top:4px;text-align:right}
+.exp-date-label{font-size:11px;color:var(--accent);font-weight:500;letter-spacing:0.04em}
+.exp-duration{font-size:11px;color:var(--hint);margin-top:3px}
+.exp-dot{position:absolute;left:160px;top:6px;width:10px;height:10px;border-radius:50%;background:var(--accent);border:2px solid var(--bg2);margin-left:calc(1rem - 5px)}
+.exp-content{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.5rem;margin-left:2rem}
+.exp-role-name{font-family:'Clash Display',sans-serif;font-size:20px;font-weight:600;color:var(--text);margin-bottom:4px;letter-spacing:-0.5px}
+.exp-company-name{font-size:13px;color:var(--accent);font-weight:500;margin-bottom:14px}
+.exp-bullets{display:flex;flex-direction:column;gap:8px}
+.exp-bullets li{font-size:13px;line-height:1.65;color:var(--sub);padding-left:18px;position:relative;list-style:none;font-weight:300}
+.exp-bullets li::before{content:'';position:absolute;left:5px;top:9px;width:5px;height:5px;border-radius:50%;background:var(--accent);opacity:0.6}
+
+/* PROJECTS */
+#projects{}
+.projects-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:3rem}
+.proj-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.75rem;display:flex;flex-direction:column;transition:border-color 0.25s,transform 0.25s}
+.proj-card:hover{border-color:var(--accent2);transform:translateY(-3px)}
+.proj-num{font-family:'Clash Display',sans-serif;font-size:11px;color:var(--hint);letter-spacing:0.1em;margin-bottom:1rem}
+.proj-card-name{font-family:'Clash Display',sans-serif;font-size:18px;font-weight:600;color:var(--text);letter-spacing:-0.5px;margin-bottom:10px;line-height:1.2}
+.proj-card-desc{font-size:13px;line-height:1.7;color:var(--sub);flex:1;margin-bottom:1.25rem;font-weight:300}
+.proj-card-tech{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:1.25rem}
+.tp{font-size:10px;padding:3px 8px;border-radius:100px;background:var(--bg3);border:1px solid var(--border);color:var(--sub);letter-spacing:0.03em}
+.proj-arrow{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--accent);font-weight:500;letter-spacing:0.04em}
+.proj-arrow svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;transition:transform 0.2s}
+.proj-card:hover .proj-arrow svg{transform:translate(3px,-3px)}
+
+/* EDUCATION & CERT */
+#education{background:var(--bg2)}
+.edu-cert-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:3rem}
+.edu-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:2rem}
+.edu-card-label{font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:var(--hint);margin-bottom:1rem}
+.edu-card-degree{font-family:'Clash Display',sans-serif;font-size:20px;font-weight:600;color:var(--text);letter-spacing:-0.5px;margin-bottom:6px;line-height:1.2}
+.edu-card-inst{font-size:13px;color:var(--sub);margin-bottom:8px}
+.edu-card-meta{display:flex;align-items:center;gap:10px}
+.edu-year{font-size:12px;color:var(--accent);font-weight:500}
+.edu-score{font-size:12px;color:var(--hint)}
+.cert-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:2rem;display:flex;flex-direction:column;justify-content:space-between}
+.cert-badge-row{display:flex;align-items:center;gap:10px;margin-top:1.25rem}
+.cert-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(245,166,35,0.12);border:1px solid rgba(245,166,35,0.25);border-radius:8px;padding:7px 14px}
+.cert-badge-dot{width:5px;height:5px;border-radius:50%;background:var(--amber)}
+.cert-badge-text{font-size:11px;color:var(--amber);font-weight:600;letter-spacing:0.06em}
+
+/* CONTACT */
+#contact{text-align:center}
+.contact-card{max-width:620px;margin:3rem auto 0;background:var(--card);border:1px solid var(--border);border-radius:20px;padding:3rem 2.5rem}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:2rem 0}
+.contact-item{background:var(--bg3);border:1px solid var(--border);border-radius:10px;padding:1rem;text-align:left}
+.contact-item-label{font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--hint);margin-bottom:4px}
+.contact-item-val{font-size:13px;color:var(--text);font-weight:400}
+.contact-item-val a{color:var(--accent);text-decoration:none}
+.contact-item-val a:hover{text-decoration:underline}
+
+/* FOOTER */
+footer{border-top:1px solid var(--border);padding:2rem;text-align:center}
+.footer-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+.footer-text{font-size:12px;color:var(--hint)}
+.footer-name{font-family:'Clash Display',sans-serif;font-size:14px;color:var(--sub);letter-spacing:-0.3px}
+
+/* ANIMATIONS */
+.fade-up{opacity:0;transform:translateY(24px);transition:opacity 0.6s ease,transform 0.6s ease}
+.fade-up.visible{opacity:1;transform:translateY(0)}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .skills-layout{grid-template-columns:repeat(2,1fr)}
+  .projects-grid{grid-template-columns:1fr 1fr}
+  .about-grid{grid-template-columns:1fr;gap:3rem}
+  .edu-cert-grid{grid-template-columns:1fr}
+}
+@media(max-width:660px){
+  .nav-links{display:none}
+  .hamburger{display:flex}
+  .skills-layout{grid-template-columns:1fr 1fr}
+  .projects-grid{grid-template-columns:1fr}
+  .exp-item{grid-template-columns:1fr;gap:0.5rem}
+  .exp-item::before{display:none}
+  .exp-dot{display:none}
+  .exp-time{text-align:left;padding-left:1.5rem}
+  .exp-content{margin-left:0}
+  .hero-stats{gap:1.5rem}
+  .stat-num{font-size:24px}
+  .contact-grid{grid-template-columns:1fr}
+  .footer-inner{flex-direction:column;text-align:center}
+}
+@media(max-width:480px){
+  .skills-layout{grid-template-columns:1fr}
+  section{padding:4rem 1.25rem}
+  nav{padding:0 1.25rem}
+}
+</style>
+</head>
+<body>
+
+<nav id="navbar">
+  <div class="nav-inner">
+    <div class="nav-logo">K<span>.</span>S</div>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#education">Education</a>
+      <a href="#contact" class="nav-cta">Contact</a>
+    </div>
+    <div class="hamburger" id="hamburger">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about" onclick="closeMobile()">About</a>
+  <a href="#skills" onclick="closeMobile()">Skills</a>
+  <a href="#experience" onclick="closeMobile()">Experience</a>
+  <a href="#projects" onclick="closeMobile()">Projects</a>
+  <a href="#education" onclick="closeMobile()">Education</a>
+  <a href="#contact" onclick="closeMobile()">Contact</a>
+</div>
+
+<main>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-grid"></div>
+    <div class="hero-glow"></div>
+    <div class="hero-inner">
+      <div class="hero-badge">
+        <div class="hero-badge-dot"></div>
+        Available for opportunities
+      </div>
+      <h1 class="hero-name">Keerthana <span class="hl">S</span></h1>
+      <p class="hero-sub">Java Full Stack Developer with 3+ years building enterprise-grade systems — biometric identity platforms, national e-passport systems, and secure Spring Boot microservices.</p>
+      <div class="hero-actions">
+        <a href="#projects" class="btn-primary">
+          View Projects
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <a href="#contact" class="btn-ghost">Get in Touch</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <div class="stat-num">3+</div>
+          <div class="stat-label">Years Experience</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">3</div>
+          <div class="stat-label">Major Projects</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">2</div>
+          <div class="stat-label">National Systems</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">10+</div>
+          <div class="stat-label">Technologies</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-visual fade-up">
+          <div class="avatar-box">
+            <div class="avatar-initials">KS</div>
+            <div class="avatar-corner">Chennai, IN</div>
+          </div>
+          <div class="about-chips">
+            <span class="chip active">Java</span>
+            <span class="chip active">Spring Boot</span>
+            <span class="chip active">Angular</span>
+            <span class="chip">Docker</span>
+            <span class="chip">OpenShift</span>
+            <span class="chip">Microservices</span>
+          </div>
+        </div>
+        <div class="about-text fade-up">
+          <div class="section-tag">About me</div>
+          <h2 class="section-title">Building systems that matter at scale</h2>
+          <p>I'm a <strong>Java Full Stack Developer</strong> with 3 years of professional experience at Madras Security Printers, delivering enterprise-grade applications for government and national-level clients.</p>
+          <p>My work spans <strong>biometric identity systems, national e-passport platforms, and inventory management</strong> — all built with a focus on security, scalability, and regulatory compliance.</p>
+          <p>I thrive at the intersection of robust backend architecture and clean, responsive frontends — using Spring Boot, Hibernate, Angular, and cloud-native tools like Docker and OpenShift.</p>
+          <div class="info-row">
+            <div class="info-item">
+              <div class="info-label">Location</div>
+              <div class="info-val">Chennai, India</div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">Experience</div>
+              <div class="info-val">3+ Years</div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">Email</div>
+              <div class="info-val">keerthanas1805@gmail.com</div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">Phone</div>
+              <div class="info-val">+91 638 220 4379</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="container">
+      <div class="fade-up">
+        <div class="section-tag">Technical skills</div>
+        <h2 class="section-title">What I work with</h2>
+      </div>
+      <div class="skills-layout">
+        <div class="skill-card fade-up">
+          <div class="skill-icon">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9l3 3-3 3M13 15h3"/></svg>
+          </div>
+          <div class="skill-cat">Backend</div>
+          <div class="skill-pills">
+            <span class="sp key">Java</span><span class="sp key">Spring Boot</span><span class="sp">Spring MVC</span><span class="sp">Hibernate</span><span class="sp">JPA</span><span class="sp">JSP</span><span class="sp">Servlets</span>
+          </div>
+        </div>
+        <div class="skill-card fade-up">
+          <div class="skill-icon">
+            <svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          </div>
+          <div class="skill-cat">Frontend</div>
+          <div class="skill-pills">
+            <span class="sp key">Angular</span><span class="sp">HTML5</span><span class="sp">CSS3</span><span class="sp">JavaScript</span><span class="sp">Bootstrap</span><span class="sp">JavaFX</span>
+          </div>
+        </div>
+        <div class="skill-card fade-up">
+          <div class="skill-icon">
+            <svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+          </div>
+          <div class="skill-cat">Databases</div>
+          <div class="skill-pills">
+            <span class="sp key">MySQL</span><span class="sp key">PostgreSQL</span>
+          </div>
+        </div>
+        <div class="skill-card fade-up">
+          <div class="skill-icon">
+            <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          <div class="skill-cat">APIs & Messaging</div>
+          <div class="skill-pills">
+            <span class="sp key">REST APIs</span><span class="sp">Kafka</span><span class="sp">JMS</span><span class="sp">ActiveMQ</span><span class="sp">Swagger</span><span class="sp">JSON</span><span class="sp">XML</span>
+          </div>
+        </div>
+        <div class="skill-card fade-up">
+          <div class="skill-icon">
+            <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          </div>
+          <div class="skill-cat">Security</div>
+          <div class="skill-pills">
+            <span class="sp key">Spring Security</span><span class="sp key">Keycloak</span>
+          </div>
+        </div>
+        <div class="skill-card fade-up">
+          <div class="skill-icon">
+            <svg viewBox="0 0 24 24"><path d="M22 12H2M5 12V5a7 7 0 0 1 14 0v7"/><path d="M5 12v7a7 7 0 0 0 14 0v-7"/></svg>
+          </div>
+          <div class="skill-cat">DevOps & Tools</div>
+          <div class="skill-pills">
+            <span class="sp key">Docker</span><span class="sp key">OpenShift</span><span class="sp">Git</span><span class="sp">GitHub</span><span class="sp">Maven</span><span class="sp">Apache Tomcat</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="container">
+      <div class="fade-up">
+        <div class="section-tag">Work history</div>
+        <h2 class="section-title">Experience</h2>
+      </div>
+      <div class="exp-timeline">
+        <div class="exp-item fade-up">
+          <div class="exp-time">
+            <div class="exp-date-label">Jul 2022 – Present</div>
+            <div class="exp-duration">3+ years</div>
+          </div>
+          <div class="exp-dot"></div>
+          <div class="exp-content">
+            <div class="exp-role-name">Software Developer</div>
+            <div class="exp-company-name">Madras Security Printers Pvt. Ltd.</div>
+            <ul class="exp-bullets">
+              <li>Designed and developed secure Java & Spring Boot applications using layered architecture principles</li>
+              <li>Built scalable RESTful services with Hibernate and JPA; documented endpoints using Swagger</li>
+              <li>Implemented role-based authentication and authorization with Spring Security and Keycloak</li>
+              <li>Developed Angular UI modules with form validations and seamless backend integration</li>
+              <li>Streamlined CI/CD deployments using Docker and OpenShift, reducing manual intervention significantly</li>
+              <li>Ensured data encryption, privacy compliance, and ICAO regulatory standards for government-grade systems</li>
+              <li>Optimized complex backend processes and maintained high application reliability across distributed systems</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="container">
+      <div class="fade-up">
+        <div class="section-tag">Selected work</div>
+        <h2 class="section-title">Projects</h2>
+      </div>
+      <div class="projects-grid">
+        <div class="proj-card fade-up">
+          <div class="proj-num">01 / National Identity</div>
+          <div class="proj-card-name">Philippine National Identity Card</div>
+          <div class="proj-card-desc">National identity management platform for citizen registration and biometric authentication. Implemented online application submission, real-time status tracking, payments, and data privacy compliance. Collaborated with stakeholders to reduce verification false positives.</div>
+          <div class="proj-card-tech">
+            <span class="tp">Java</span><span class="tp">Spring Boot</span><span class="tp">Hibernate</span><span class="tp">REST APIs</span><span class="tp">FXML</span><span class="tp">Microservice</span>
+          </div>
+          <div class="proj-arrow">
+            View project
+            <svg viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg>
+          </div>
+        </div>
+
+
+        <div class="proj-card fade-up">
+          <div class="proj-num">02 / Biometric System</div>
+          <div class="proj-card-name">Malawi e-Passport System</div>
+          <div class="proj-card-desc">ICAO-compliant biometric passport system with fingerprint, facial, and signature capture at national scale. Built real-time device-to-server APIs, data synchronization across distributed systems, and a JavaFX desktop module for biometric capture operations.</div>
+          <div class="proj-card-tech">
+            <span class="tp">Java</span><span class="tp">Spring Boot</span><span class="tp">Hibernate</span><span class="tp">REST APIs</span><span class="tp">JavaFX</span>
+          </div>
+          <div class="proj-arrow">
+            View project
+            <svg viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg>
+          </div>
+        </div>
+        <div class="proj-card fade-up">
+          <div class="proj-num">03 / Inventory</div>
+          <div class="proj-card-name">Medical Kit Inventory System</div>
+          <div class="proj-card-desc">End-to-end inventory tracking system from suppliers to end users. Implemented stock aggregation, real-time allocation updates, and automated alerts for low stock, expiry, and reorder thresholds via message queuing integration.</div>
+          <div class="proj-card-tech">
+            <span class="tp">Java</span><span class="tp">Spring Boot</span><span class="tp">MySQL</span><span class="tp">REST APIs</span><span class="tp">Messaging</span>
+          </div>
+          <div class="proj-arrow">
+            View project
+            <svg viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg>
+          </div>
+        </div>
+        <div class="proj-card fade-up">
+          <div class="proj-num">04 / National Identity</div>
+          <div class="proj-card-name">Zambia National Identity Card</div>
+          <div class="proj-card-desc">National identity management platform for citizen registration and biometric authentication. Implemented online application submission, real-time status tracking, payments, and data privacy compliance. Collaborated with stakeholders to reduce verification false positives.</div>
+          <div class="proj-card-tech">
+            <span class="tp">Java</span><span class="tp">Spring Boot</span><span class="tp">Hibernate</span><span class="tp">REST APIs</span><span class="tp">FXML</span>
+          </div>
+          <div class="proj-arrow">
+            View project
+            <svg viewBox="0 0 24 24"><path d="M7 17L17 7M7 7h10v10"/></svg>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education">
+    <div class="container">
+      <div class="fade-up">
+        <div class="section-tag">Background</div>
+        <h2 class="section-title">Education & Certification</h2>
+      </div>
+      <div class="edu-cert-grid">
+        <div class="edu-card fade-up">
+          <div class="edu-card-label">Degree</div>
+          <div class="edu-card-degree">B.E. Computer Science Engineering</div>
+          <div class="edu-card-inst">Sri Venkateswara College of Engineering and Technology, Tiruvallur</div>
+          <div class="edu-card-meta">
+            <span class="edu-year">Graduated 2020</span>
+            <span class="edu-score">74%</span>
+          </div>
+        </div>
+        <div class="cert-card edu-card fade-up">
+          <div>
+            <div class="edu-card-label">Certification</div>
+            <div class="edu-card-degree">Java Certification</div>
+            <div class="edu-card-inst">SBL IT Solution</div>
+            <div class="edu-card-meta">
+              <span class="edu-year">August 2022</span>
+            </div>
+          </div>
+          <div class="cert-badge-row">
+            <div class="cert-badge">
+              <div class="cert-badge-dot"></div>
+              <span class="cert-badge-text">Certified</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="container">
+      <div class="fade-up">
+        <div class="section-tag">Get in touch</div>
+        <h2 class="section-title">Let's work together</h2>
+        <p style="color:var(--sub);font-size:15px;font-weight:300;max-width:480px;margin:0 auto">Open to new opportunities, collaborations, and interesting projects. Feel free to reach out.</p>
+      </div>
+      <div class="contact-card fade-up">
+        <div class="contact-grid">
+          <div class="contact-item">
+            <div class="contact-item-label">Email</div>
+            <div class="contact-item-val"><a href="mailto:keerthanas1805@gmail.com">keerthanas1805@gmail.com</a></div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-label">Phone</div>
+            <div class="contact-item-val"><a href="tel:+916382204379">+91 638 220 4379</a></div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-label">LinkedIn</div>
+            <div class="contact-item-val"><a href="https://linkedin.com/in/Keerthana-s-b22442394" target="_blank">linkedin.com/in/Keerthana-s</a></div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-label">Location</div>
+            <div class="contact-item-val">Chennai, Tamil Nadu, India</div>
+          </div>
+        </div>
+        <a href="mailto:keerthanas1805@gmail.com" class="btn-primary" style="width:100%;justify-content:center;margin-top:0.5rem">
+          Send a Message
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-name">Keerthana S</div>
+    <div class="footer-text">Java Full Stack Developer · Chennai, India</div>
+    <div class="footer-text">© 2025 All rights reserved</div>
+  </div>
+</footer>
+
+<script>
+const hamburger=document.getElementById('hamburger');
+const mobileMenu=document.getElementById('mobileMenu');
+hamburger.addEventListener('click',()=>mobileMenu.classList.toggle('open'));
+function closeMobile(){mobileMenu.classList.remove('open')}
+
+const sections=document.querySelectorAll('section[id]');
+const navLinks=document.querySelectorAll('.nav-links a[href^="#"]');
+window.addEventListener('scroll',()=>{
+  let cur='';
+  sections.forEach(s=>{if(window.scrollY>=s.offsetTop-100)cur=s.id});
+  navLinks.forEach(a=>{a.classList.toggle('active',a.getAttribute('href')==='#'+cur)});
+});
+
+const observer=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')});
+},{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.fade-up').forEach(el=>observer.observe(el));
+</script>
+</body>
+</html>
